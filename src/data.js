@@ -1,4 +1,13 @@
-const routes = [
+export const getAirlineById = (id) => {
+	const airline = airlines.find(airline => airline.id === id)
+	return airline.name
+}
+
+export const getAirportByCode = (code) => {
+	return airports.find(airport => airport.code === code).name
+}
+
+export const routes = [
   {"airline":24,"src":"DFW","dest":"XNA"},
   {"airline":24,"src":"DFW","dest":"FWA"},
   {"airline":24,"src":"TYS","dest":"LGA"},
@@ -851,7 +860,7 @@ const routes = [
   {"airline":4951,"src":"NBO","dest":"IST"},
 ];
 
-const airlines = [
+export const airlines = [
   {"id":24,"name":"American Airlines"},
   {"id":130,"name":"Aeroflot Russian Airlines"},
   {"id":218,"name":"Air India Limited"},
@@ -871,7 +880,7 @@ const airlines = [
   {"id":4951,"name":"Turkish Airlines"},
 ];
 
-const airports = [
+export const airports = [
   {"code":"YEG","name":"Edmonton International Airport","lat":53.309700012200004,"long":-113.580001831},
   {"code":"YHZ","name":"Halifax / Stanfield International Airport","lat":44.8807983398,"long":-63.5085983276},
   {"code":"YMM","name":"Fort McMurray Airport","lat":56.653301239,"long":-111.222000122},
@@ -1394,5 +1403,3 @@ const airports = [
   {"code":"BGG","name":"Bingöl Airport","lat":38.861111,"long":40.5925},
 
 ];
-
-export default {routes, airlines, airports};
