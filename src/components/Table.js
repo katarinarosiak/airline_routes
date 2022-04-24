@@ -4,24 +4,15 @@ import { useState } from 'react';
 
 const Table = () => {
 	const [ displayedRoutes, setDisplayedRoutes ] = useState(0)
+	const maxShown = 25; 
 
-	const getRoutes = (event) => {
-		console.log(event.target.add);
-		if (event.target.id === 'previous') {
-			setDisplayedRoutes(displayedRoutes - 25)
-			if (displayedRoutes === 0) {
-				event.target.setAttribute('disabled');
-			} else {
-				event.target.removeAttribute('disabled');
-			}
-		} else {
-			setDisplayedRoutes(displayedRoutes + 25)
-			if (displayedRoutes >= routes.length) {
-				event.target.setAttribute('disabled');
-			} else {
-				event.target.removeAttribute('disabled');
-			}
-		}
+
+	const showPrevious = (event) => {
+		setDisplayedRoutes(displayedRoutes - maxShown)
+	}
+
+	const showNext = (event) => {
+		setDisplayedRoutes(displayedRoutes + maxShown)
 	}
 
 	return (
@@ -44,10 +35,10 @@ const Table = () => {
 					)}
 				</tbody>
 			</table>
-			<p>Showing {displayedRoutes+1} - {displayedRoutes+25} routes of {routes.length} total routes</p>
+			<p>Showing {displayedRoutes+1} - {displayedRoutes+maxShown} routes of {routes.length} total routes</p>
 			<div>
-				<button id="previous" onClick={getRoutes} disabled>Previous Page</button>
-				<button id="next" onClick={getRoutes}>Next Page</button>
+				<button id="previous" onClick={showPrevious} disabled={displayedRoutes+1 === 1}>Previous Page</button>
+				<button id="next" onClick={showNext} disabled={displayedRoutes+maxShown === routes.length}>Next Page</button>
 			</div>
 		</div>
 	)
