@@ -1,3 +1,4 @@
+
 export const getAirlineById = (id) => {
 	const airline = airlines.find(airline => airline.id === id)
 	return airline.name
@@ -5,6 +6,35 @@ export const getAirlineById = (id) => {
 
 export const getAirportByCode = (code) => {
 	return airports.find(airport => airport.code === code).name
+}
+
+const getAirportByName = (name) => {
+	return airports.find(airport => airport.name === name)
+}
+
+const getAirlineByName = (name) => {
+	return airlines.find(airline => airline.name === name)
+}
+
+export const filterRoutes = (selectedAirline, selectedAirport) => {
+	let airlineID;
+	let airportCode;
+
+	if (selectedAirline !== 'All Airlines') {
+		airlineID = getAirlineByName(selectedAirline).id;
+	}
+	if (selectedAirport !== 'All Airports') {
+		airportCode = getAirportByName(selectedAirport).code;
+
+	}
+
+	return routes.filter(route => {
+		if ((airlineID && route.airline === airlineID) ||
+			airportCode && (route.src === airportCode ||
+			route.dest === airportCode)) {
+				return true
+			}
+	})
 }
 
 export const routes = [

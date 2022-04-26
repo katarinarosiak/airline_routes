@@ -2,9 +2,10 @@ import React from 'react'
 import  {routes, getAirlineById, getAirportByCode} from '../data.js'
 import { useState } from 'react';
 
-const Table = () => {
+const Table = ({selectedRoutes}) => {
 	const [ displayedRoutes, setDisplayedRoutes ] = useState(0)
 	const maxShown = 25; 
+	
 
 
 	const showPrevious = (event) => {
@@ -26,7 +27,7 @@ const Table = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{routes.slice(displayedRoutes,displayedRoutes+25).map(route => 
+					{selectedRoutes.slice(displayedRoutes,displayedRoutes+25).map(route => 
 						<tr>
 							<td>{getAirlineById(route.airline)}</td>
 							<td>{getAirportByCode(route.src)}</td>
@@ -38,10 +39,11 @@ const Table = () => {
 			<p>Showing {displayedRoutes+1} - {displayedRoutes+maxShown} routes of {routes.length} total routes</p>
 			<div>
 				<button id="previous" onClick={showPrevious} disabled={displayedRoutes+1 === 1}>Previous Page</button>
-				<button id="next" onClick={showNext} disabled={displayedRoutes+maxShown === routes.length}>Next Page</button>
+				<button id="next" onClick={showNext} disabled={displayedRoutes+maxShown === selectedRoutes.length}>Next Page</button>
 			</div>
 		</div>
 	)
 }
 
 export default Table
+
