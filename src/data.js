@@ -25,16 +25,34 @@ export const filterRoutes = (selectedAirline, selectedAirport) => {
 	}
 	if (selectedAirport !== 'All Airports') {
 		airportCode = getAirportByName(selectedAirport).code;
-
+		console.log(airportCode);
 	}
 
-	return routes.filter(route => {
-		if ((airlineID && route.airline === airlineID) ||
-			airportCode && (route.src === airportCode ||
-			route.dest === airportCode)) {
-				return true
-			}
-	})
+	/*
+	if airlineID is undefined 
+		get all the airlines 
+	else 
+		find all airlines with this id 
+
+	if airpord code is undefined 
+		return the list 
+	else filter by code 
+	*/
+	let filteredRoutes; 
+
+	if (airlineID) {
+		filteredRoutes = routes.filter(route => route.airline === airlineID)
+	} else {
+		filteredRoutes = routes;
+	}
+
+	if (airportCode) {
+		filteredRoutes = filteredRoutes.filter(route => 
+			route.src === airportCode || route.dest === airportCode) 
+		console.log(filteredRoutes);
+	}
+	return filteredRoutes;
+
 }
 
 export const routes = [
