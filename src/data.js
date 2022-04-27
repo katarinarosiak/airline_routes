@@ -19,25 +19,15 @@ const getAirlineByName = (name) => {
 export const filterRoutes = (selectedAirline, selectedAirport) => {
 	let airlineID;
 	let airportCode;
-
+	console.log(selectedAirport);
+	// console.log(selectedAirline);
 	if (selectedAirline !== 'All Airlines') {
 		airlineID = getAirlineByName(selectedAirline).id;
 	}
 	if (selectedAirport !== 'All Airports') {
 		airportCode = getAirportByName(selectedAirport).code;
-		console.log(airportCode);
 	}
 
-	/*
-	if airlineID is undefined 
-		get all the airlines 
-	else 
-		find all airlines with this id 
-
-	if airpord code is undefined 
-		return the list 
-	else filter by code 
-	*/
 	let filteredRoutes; 
 
 	if (airlineID) {
@@ -49,11 +39,10 @@ export const filterRoutes = (selectedAirline, selectedAirport) => {
 	if (airportCode) {
 		filteredRoutes = filteredRoutes.filter(route => 
 			route.src === airportCode || route.dest === airportCode) 
-		console.log(filteredRoutes);
 	}
 	return filteredRoutes;
-
 }
+
 
 export const routes = [
   {"airline":24,"src":"DFW","dest":"XNA"},

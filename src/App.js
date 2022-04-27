@@ -7,10 +7,36 @@ import  {routes, airlines, airports, filterRoutes, getAirlineById, getAirportByC
 
 
 const App = () => {
-	
+	const defaultAirlines = 'All Airlines';
+	const defaultAirports = 'All Airports';
+
 	const [ selectedRoutes, setSelectedRoutes] = useState(routes);
-	const [ selectedAirline, setSelectedAirline ] = useState('All Airlines');
-	const [selectedAirport, setSelectedAirport] = useState('All Airports');
+	const [ selectedAirline, setSelectedAirline] = useState(defaultAirlines);
+	const [ selectedAirport, setSelectedAirport ] = useState(defaultAirports);
+
+	// const selectedRoutes = routes;
+
+	// const onSelect = (e) => {
+	// 	let filteredRoutes;
+	// 	if (e.target.id === 'airlineSelect') {
+	// 		filteredRoutes = filterRoutes(e.target.value, selectedAirport);
+	// 		setSelectedRoutes(filteredRoutes);
+	// 		setSelectedAirline(e.target.value); 
+	// 	} else {
+	// 		console.log('on select');
+	// 		filteredRoutes = filterRoutes(selectedAirline, e.target.value)
+
+	// 		setSelectedRoutes(filteredRoutes)
+	// 		setSelectedAirport(e.target.value);
+	// 	}
+
+
+	// 	console.log('selectedRoutes', selectedRoutes)
+	// }
+
+	// const [ selectedRoutes, setSelectedRoutes] = useState(routes);
+	// const [ selectedAirline, setSelectedAirline ] = useState('All Airlines');
+	// const [selectedAirport, setSelectedAirport] = useState('All Airports');
 	// const [ selectedAirlines, setSelectedAirlines ] = useState(airlines);
 	// const [selectedAirports, setSelectedAirports] = useState(airports);
 
@@ -19,32 +45,30 @@ const App = () => {
 		
 		let filteredRoutes;
 
-		if (e.target.id === 'airline') {
+		if (e.target.id === 'airlineSelect') {
 			filteredRoutes = filterRoutes(name, selectedAirport)
 			setSelectedAirline(name)
 		} else {
 			filteredRoutes = filterRoutes(selectedAirline, name)
 			setSelectedAirport(name)
 		}
-		
+		console.log(filteredRoutes)
 		setSelectedRoutes(filteredRoutes)
-		/*
-
-		- on change collect the chosen value 
-		- take the value of other option window 
-		- filter routes to show only those
-		 that airport is like selectedAirport
-		 and 
-		- airline is as selected irline
-		- give the routes to Table 
-
-
-
-
-		*/
-
-	
+		console.log(selectedRoutes);
 	}
+
+	/*
+	adding clear filters button
+	it doesn't reset select windows 
+	*/
+	const clearFilters = (e) => {
+		setSelectedAirline(defaultAirlines);
+		setSelectedAirport(defaultAirports);
+		setSelectedRoutes(routes)
+		document.getElementById('airlineSelect').value = defaultAirlines;
+		document.getElementById('airportSelect').value = defaultAirports;		
+	}
+
 
 
 	return (
@@ -53,7 +77,7 @@ const App = () => {
 			<h1 className="title">Airline Routes</h1>
 		</header>
 			<section>
-			<Select onSelect={onSelect} airlines={airlines} airports={airports}/>
+			<Select onSelect={onSelect} airlines={airlines} airports={airports} clearFilters={clearFilters}/>
 				<Table className="routes-table" selectedRoutes={selectedRoutes}/>
 			</section>
 		</div>
@@ -62,4 +86,7 @@ const App = () => {
 
 
 export default App;
+
+
+
 

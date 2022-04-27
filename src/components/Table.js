@@ -1,19 +1,25 @@
 import React from 'react'
-import  {routes, getAirlineById, getAirportByCode} from '../data.js'
+import  {getAirlineById, getAirportByCode} from '../data.js'
 import { useState } from 'react';
 
 const Table = ({selectedRoutes}) => {
-	const [ displayedRoutes, setDisplayedRoutes ] = useState(0)
-	const maxShown = 25; 
 	
+	const [ sliceStart, setSliceStart ] = useState(0);
+	const maxShown = 25;
+	const selectedRoutesSlice = selectedRoutes.slice(sliceStart, sliceStart+maxShown);
+	const showingPageStart = sliceStart+1;
+	const showingPageEnd = sliceStart + selectedRoutesSlice.length; 
 
-
-	const showPrevious = (event) => {
-		setDisplayedRoutes(displayedRoutes - maxShown)
+	const showNext = () => {
+		setSliceStart(() => {
+			return sliceStart + selectedRoutesSlice.length;  
+		})
 	}
 
-	const showNext = (event) => {
-		setDisplayedRoutes(displayedRoutes + maxShown)
+	const showPrevious = () => {
+		setSliceStart(() => {
+			return sliceStart - selectedRoutesSlice.length;
+		})
 	}
 
 	return (
@@ -27,7 +33,7 @@ const Table = ({selectedRoutes}) => {
 					</tr>
 				</thead>
 				<tbody>
-					{selectedRoutes.slice(displayedRoutes,displayedRoutes+25).map(route => 
+					{selectedRoutesSlice.map(route => 
 						<tr>
 							<td>{getAirlineById(route.airline)}</td>
 							<td>{getAirportByCode(route.src)}</td>
@@ -36,10 +42,10 @@ const Table = ({selectedRoutes}) => {
 					)}
 				</tbody>
 			</table>
-			<p>Showing {displayedRoutes+1} - {displayedRoutes+maxShown} routes of {routes.length} total routes</p>
+			<p>Showing {showingPageStart} - {showingPageEnd} routes of {selectedRoutes.length} total routes</p>
 			<div>
-				<button id="previous" onClick={showPrevious} disabled={displayedRoutes+1 === 1}>Previous Page</button>
-				<button id="next" onClick={showNext} disabled={displayedRoutes+maxShown === selectedRoutes.length}>Next Page</button>
+				<button id="previous" onClick={showPrevious} disabled={showingPageStart === 1}>Previous Page</button>
+				<button id="next" onClick={showNext} disabled={showingPageEnd === selectedRoutes.length}>Next Page</button>
 			</div>
 		</div>
 	)
