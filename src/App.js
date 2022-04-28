@@ -3,7 +3,8 @@ import './App.css';
 import { useState } from 'react';
 import Table from './components/Table'
 import Select from './components/Select';
-import  {routes, airlines, airports, filterRoutes, getAirlineById, getAirportByCode} from './data.js'
+import Map from './components/Map';
+import  {routes, airlines, airports, filterRoutes} from './data.js'
 
 
 const App = () => {
@@ -52,9 +53,8 @@ const App = () => {
 			filteredRoutes = filterRoutes(selectedAirline, name)
 			setSelectedAirport(name)
 		}
-		console.log(filteredRoutes)
+
 		setSelectedRoutes(filteredRoutes)
-		console.log(selectedRoutes);
 	}
 
 	/*
@@ -76,8 +76,16 @@ const App = () => {
 		<header className="header">
 			<h1 className="title">Airline Routes</h1>
 		</header>
+		<section>
+			<Map routes={selectedRoutes}/>
+		</section>
 			<section>
-			<Select onSelect={onSelect} airlines={airlines} airports={airports} clearFilters={clearFilters}/>
+			<Select onSelect={onSelect}
+			 	airlines={airlines}
+				airports={airports}
+				clearFilters={clearFilters}
+				selectedRoutes={selectedRoutes}
+				all={selectedAirline==='All Airlines'&&selectedAirport==='All Airports'}/>
 				<Table className="routes-table" selectedRoutes={selectedRoutes}/>
 			</section>
 		</div>

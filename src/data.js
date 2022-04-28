@@ -1,11 +1,10 @@
 
 export const getAirlineById = (id) => {
-	const airline = airlines.find(airline => airline.id === id)
-	return airline.name
+	return  airlines.find(airline => airline.id === id)
 }
 
 export const getAirportByCode = (code) => {
-	return airports.find(airport => airport.code === code).name
+	return airports.find(airport => airport.code === code)
 }
 
 const getAirportByName = (name) => {
@@ -20,7 +19,6 @@ export const filterRoutes = (selectedAirline, selectedAirport) => {
 	let airlineID;
 	let airportCode;
 	console.log(selectedAirport);
-	// console.log(selectedAirline);
 	if (selectedAirline !== 'All Airlines') {
 		airlineID = getAirlineByName(selectedAirline).id;
 	}

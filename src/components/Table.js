@@ -1,6 +1,7 @@
 import React from 'react'
 import  {getAirlineById, getAirportByCode} from '../data.js'
 import { useState } from 'react';
+import { nanoid } from 'nanoid'
 
 const Table = ({selectedRoutes}) => {
 	
@@ -24,7 +25,7 @@ const Table = ({selectedRoutes}) => {
 
 	return (
 		<div>
-			<table>
+			<table className='routes-table'>
 				<thead>
 					<tr>
 						<th>Airline</th>
@@ -33,11 +34,11 @@ const Table = ({selectedRoutes}) => {
 					</tr>
 				</thead>
 				<tbody>
-					{selectedRoutesSlice.map(route => 
-						<tr>
-							<td>{getAirlineById(route.airline)}</td>
-							<td>{getAirportByCode(route.src)}</td>
-							<td>{getAirportByCode(route.dest)}</td>
+					{selectedRoutesSlice.map((route, idx) => 
+						<tr key={nanoid()}>
+							<td>{getAirlineById(route.airline).name}</td>
+							<td>{getAirportByCode(route.src).name}</td>
+							<td>{getAirportByCode(route.dest).name}</td>
 						</tr>
 					)}
 				</tbody>
@@ -53,3 +54,4 @@ const Table = ({selectedRoutes}) => {
 
 export default Table
 
+// style={idx%2===0?{backgroundColor:"lightGrey"} : {backgroundColor:"white"} }
