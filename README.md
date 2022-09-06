@@ -1,8 +1,9 @@
 <h1>Airline Routes</h1>
 
-Airline Routes is a React application that allows to filter and displays information about a collection of routes flown by several large airlines. 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Airline Routes is a React application that allows to filter and displays information about a collection of routes flown by several large airlines.
 
+
+![route_planner](https://user-images.githubusercontent.com/64321232/188605600-da910cd4-787b-4f8e-a1ac-293c5e02c718.png)
 
 <h2>Technologies:</h2> 
 <div>
